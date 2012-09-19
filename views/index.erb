@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style type="text/css">
+<%=tinker[:code][:css]%>
+
+</style>
+</head>
+
+<body>
+<%=tinker[:code][:html]%>
+
+<% for script in tinker[:deps][:scripts] %>
+	<script src="<%= script %>"></script>
+<% end %>
+<script>
+<%=tinker[:code][:js]%>
+
+</script>
+</body>
+</html>
