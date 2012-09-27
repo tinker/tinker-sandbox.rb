@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<% for href in tinker[:dependencies][:styles] %>
+	<link rel="stylesheet" href="<%=href%>"></script>
+<% end %>
 <style type="text/css">
 <%=tinker[:code][:css]%>
 
@@ -11,8 +14,8 @@
 <body>
 <%=tinker[:code][:html]%>
 
-<% for script in tinker[:deps][:scripts] %>
-	<script src="<%= script %>"></script>
+<% for href in tinker[:dependencies][:scripts] %>
+	<script src="<%=href%>"></script>
 <% end %>
 <script>
 <%=tinker[:code][:js]%>
