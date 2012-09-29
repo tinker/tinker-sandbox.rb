@@ -19,6 +19,7 @@ module Tinker
           :js => Base64.decode64(code[:behaviour][:body])
         }
       }
+
       if dependencies && dependencies.length
         dependencies.each do |href|
           ext = (href.match(/(css|js)$/) || [])[1]
@@ -33,6 +34,19 @@ module Tinker
           end
         end
       end
+
+      if code[:style][:type] === 'less'
+        source = Tempfile.new 'tinker'
+        dest = Tempfile.new 'tinker'
+        source.write tinker[:code][:css]
+        source.close
+        system "lessc #{source.path} #{dest.path}"
+        source.unlink
+        tinker[:code][:css] = dest.read
+        dest.close
+        dest.unlink
+      end
+
       headers 'X-Frame-Options' => ''
       body erb :index, :locals => {:tinker => tinker}
     end
